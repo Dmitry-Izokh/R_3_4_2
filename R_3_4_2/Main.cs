@@ -100,8 +100,11 @@ namespace R_3_4_2
                         }
                     }
                 }
-                return Result.Succeeded;
+                workbook.Write(stream);
+                workbook.Close();
+                
             }
+            return Result.Succeeded;
         }
     }
 }
