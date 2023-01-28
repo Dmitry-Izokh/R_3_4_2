@@ -83,6 +83,13 @@ namespace R_3_4_2
                         Parameter rMinParametr = pipe.get_Parameter(BuiltInParameter.RBS_PIPE_INNER_DIAM_PARAM);
                         Parameter lengthParametr = pipe.get_Parameter(BuiltInParameter.CURVE_ELEM_LENGTH);
 
+                        
+                        if (nameParametr.StorageType == StorageType.String)
+                        {
+                            string nameType = nameParametr.AsString();
+                            sheet.SetCellValue(rowIndex, columnIndex: 0, nameParametr);
+                        }
+
                         if (rMaxParametr.StorageType == StorageType.Double || rMinParametr.StorageType == StorageType.Double || lengthParametr.StorageType == StorageType.Double)
                         {
                             double rMaxhValue = UnitUtils.ConvertFromInternalUnits(rMaxParametr.AsDouble(), DisplayUnitType.DUT_METERS);
@@ -93,11 +100,12 @@ namespace R_3_4_2
 
                             double lengtValue = UnitUtils.ConvertFromInternalUnits(lengthParametr.AsDouble(), DisplayUnitType.DUT_METERS);
                             double lengt = lengtValue;
-                            sheet.SetCellValue(rowIndex, columnIndex: 0, nameParametr);
+                            
                             sheet.SetCellValue(rowIndex, columnIndex: 1, lengt);
                             sheet.SetCellValue(rowIndex, columnIndex: 2, rMax);
                             sheet.SetCellValue(rowIndex, columnIndex: 3, rMin);
-                        }
+                        }                       
+                        
                     }
                 }
                 workbook.Write(stream);
